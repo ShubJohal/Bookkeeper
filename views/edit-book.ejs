@@ -1,0 +1,82 @@
+<%- include('partials/header') %>
+
+<div class="add-book-container">    
+    <h1>Edit Book Details</h1>
+    <form action="/books/<%= book.id %>/update" method="POST" class="add-book-form"  enctype="multipart/form-data">
+        <div class="form-group">
+            <label for="title"><%= book.title %></label>
+            <input type="text" id="title" name="title" value="<%= book.title %>" required>
+        </div>
+        <div class="form-group">
+            <label for="author">Author *</label>
+            <input type="text" id="author" name="author" value="<%= book.author %>" required>
+            <div class="Book-Cover">
+            <button type="button" class="find-cover-button" id="find-cover-button">Find Book Cover</button>
+        
+            <p class="cover-text" id="cover-text">Fetching Book cover<span id="dots"></span></p>
+            <p id="cover-status" class="cover-status">Book Cover Found!</p>
+           
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="read">Date Read *:</label>
+            <input type="date" id="read" name="read" value="<%= new Date(book.date_read).toISOString().split('T')[0] %>" required>
+        </div>
+        <div class="form-group rating-group">
+            <span class="rating-label">Rating *</span>
+            <div class="rating-stars" role="radiogroup" aria-label="Rate this book from 1 to 5 stars">
+                  <input type="radio" id="rating-5" name="rating" value="5" <%= book.rating===5 ? "checked" : "" %>>
+                  <label for="rating-5" aria-label="5 stars">&#9733;</label>
+
+                  <input type="radio" id="rating-4" name="rating" value="4" <%= book.rating===4 ? "checked" : "" %>>
+                  <label for="rating-4" aria-label="4 stars">&#9733;</label>
+
+                  <input type="radio" id="rating-3" name="rating" value="3" <%= book.rating===3 ? "checked" : "" %>>
+                  <label for="rating-3" aria-label="3 stars">&#9733;</label>
+
+                  <input type="radio" id="rating-2" name="rating" value="2" <%= book.rating===2 ? "checked" : "" %>>
+                  <label for="rating-2" aria-label="2 stars">&#9733;</label>
+
+                  <input type="radio" id="rating-1" name="rating" value="1" <%= book.rating===1 ? "checked" : "" %> required>
+                  <label for="rating-1" aria-label="1 star">&#9733;</label>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="notes">Key Notes & Summary:</label>
+            <textarea id="notes" name="notes" rows="5" placeholder="What did you learn from this book? Key takeaways..."><%= book.notes %></textarea>
+        </div>
+
+        <div class="form-group">
+            <label for="cover">Book Cover Image</label>
+           <!-- Hidden real input -->
+  <input 
+    type="file" 
+    id="bookCoverFile" 
+    name="bookCoverFile" 
+    accept="image/*" 
+    style="display: none;"
+  >
+
+    <!-- Custom upload box -->
+  <div class="upload-box" id="uploadBox">
+    <svg class="upload-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+      <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+      <polyline points="17 8 12 3 7 8"></polyline>
+      <line x1="12" x2="12" y1="3" y2="15"></line>
+    </svg>
+
+    <p class="upload-text">Click to upload or drag and drop</p>
+    <p class="upload-subtext">PNG, JPG up to 5MB</p>
+    <img src="" alt="Cover Preview" class="cover-preview" id="cover-preview">
+        <input type="hidden" id="book_cover" name="book_cover" value="">
+  </div>
+</div>
+        
+        <div class="addBook-button">
+        <button type="submit" class="submit-button" data-default-label="Update Book">Update Book</button>
+        <button type="cancel" class="cancel-button" id="cancel-button">Cancel</button>   
+        </div>
+    </form>
+
+    </div>
+<script src="/js/addBook.js"></script>

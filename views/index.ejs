@@ -1,0 +1,72 @@
+<%- include('partials/header') %>
+
+<div class="container">
+    <!-- Search Bar Section-->
+     <section class="search-bar">
+        <form action="/" method="POST">
+            <div class="search-items">
+            <div class="search-icon">
+            <img class="search-image" src="/assessts/icons/search-931-48.png" alt="searc-icon">
+            <input class="search-input" id="search" type="search" name="search" placeholder="Search by title or author">
+            </div>
+            <div class="rating-filter">
+            <select name="sortby" id="sortby">
+                <option value="rating">Sort by Rating</option>
+                <option value="recency">Sory By Recency</option>
+                <option value="title">Sory By Title</option>
+            </select>
+            </div>
+            <button type="button" class="clear-filter-button" id="clear-filters">Clear filters</button>
+            </div>
+              <div class="rating" id="rating-filter">
+                <p>Filter by Rating:</p>
+                <button type="button" data-rating="5">5 &#11088;</button>
+                <button type="button" data-rating="4">4 &#11088;</button>
+                <button type="button" data-rating="3">3 &#11088;</button>
+                <button type="button" data-rating="2">2 &#11088;</button>
+                <button type="button" data-rating="1">1 &#11088;</button>
+              </div>        
+        </form>
+     </section>
+
+        <!-- Books Display Section -->
+   
+        
+     <section class="books" id ="books-section">
+         <% if (books.length > 0) { %>
+
+        <% books.forEach(book => { %>
+        <div class="book-card">
+        <div class="icon">&#128218;</div>
+            <h3 class="book-title1"><%=book.title %></h3>
+            <p class="body-text"><%=book.author %></p>
+            <p class="small-text"><%= new Date(book.date_read).toLocaleDateString('en-AU', { month: 'short', year: 'numeric' }) %></p>
+            
+            <div class="rating-display">
+              <% for (let i = 0; i < 5; i++) { %>
+                <% if (i < book.rating) { %>
+                  <span>&#11088;</span>
+                <% } else { %>
+                  <span>&#9734;</span>
+                <% } %>
+              <% } %>
+            </div>
+            <a href="/books/<%= book.id %>" class="view-detail">View Details</a>     
+             </div>
+              <% }) %>
+    <% } else { %>
+        <div class="empty-state">
+            <div class="empty-state-icon">Library</div>
+            <h2>No books found yet</h2>
+            <p>Start your library by adding your first book, or adjust your search and filters.</p>
+            <a href="/addBook" class="empty-state-action">Add Book</a>
+        </div>
+    <% } %>
+    
+     </section>
+  
+     </div>
+</body>
+</html>
+
+<script src="/js/library.js"></script>

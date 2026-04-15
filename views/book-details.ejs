@@ -1,0 +1,68 @@
+<%- include('partials/header') %>
+
+<div class="book-container">
+
+<a class="back-button" href="/">
+    <img class="search-image" src="/assessts/icons/left-arrow.png" alt="searc-icon"> 
+    Back to Library
+</a>
+<div class="book-info">
+    <div class="book-cover">
+<img src="<%= book.book_cover %>" alt="book-cover" class="book-cover-image">
+    </div>
+    <div class="book-details">
+        <h1 class="book-title"><%= book.title %></h1>
+        <div class="book-meta">
+            <p class="book-author">Author: <%= book.author %></p>
+            <p class="small-text"><%= new Date(book.date_read).toLocaleDateString('en-AU', { month: 'short', year: 'numeric' }) %></p>      
+            <div class="rating-display">
+                  <% for (let i = 0; i < 5; i++) { %>
+                    <% if (i < book.rating) { %>
+                      <span>&#11088;</span>
+                    <% } else { %>
+                      <span>&#9734;</span>
+                    <% } %>
+                  <% } %>
+                </div>
+        </div>
+        <div class="book-text">
+        <h2>Key Notes & Summary</h2>
+        <div class="book-description">
+            <p><%= book.notes %></p>
+            
+        </div>
+        
+        </div>
+         <div class="action-buttons">
+            <form action="/books/<%= book.id %>/edit">
+        <button class="edit-book">
+            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 20 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-pen w-4 h-4"><path d="M17 3a2.85 2.83 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5Z">
+
+            </path>
+        </svg>Edit Book</button>
+        </form>
+        <form action="/books/<%= book.id %>/delete" method="POST">
+            <button class="delete-book" type="button" id="open-delete-modal">Delete</button>
+
+            <div class="delete-modal" id="delete-modal" aria-hidden="true">
+                <div class="delete-modal__backdrop" data-close-modal></div>
+                <div class="delete-modal__dialog" role="dialog" aria-modal="true" aria-labelledby="delete-modal-title" aria-describedby="delete-modal-description">
+                    <div class="delete-modal__badge">Delete book</div>
+                    <h2 class="delete-modal__title" id="delete-modal-title">Remove "<%= book.title %>" from your library?</h2>
+                    <p class="delete-modal__description" id="delete-modal-description">
+                        This action will permanently delete the book details, notes, rating, and cover reference from your collection.
+                    </p>
+                    <div class="delete-modal__actions">
+                        <button class="delete-modal__cancel" type="button" id="cancel-delete-modal">Keep Book</button>
+                        <button class="delete-modal__confirm" type="submit">Yes, Delete It</button>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+    </div>
+   
+</div>
+
+</div>
+<script src="/js/bookDetails.js"></script>

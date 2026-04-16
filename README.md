@@ -70,7 +70,7 @@ CREATE TABLE books (
 ```
 
  ## 4. Configure database
- Update your db.js file with your PostgreSQL credentials.
+ Update .env file with your database creds. 
 
  ## 5. Run the app
 
